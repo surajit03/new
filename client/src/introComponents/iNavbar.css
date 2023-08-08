@@ -1,0 +1,21 @@
+.Navbar{
+    display: flex;
+    height: 40px;
+    align-items: center;
+    justify-content: space-between;
+}
+.item{
+    margin: 0px 8px;
+    gap: 16px;
+    border: none;
+}
+#dItem{
+    cursor: pointer;
+    list-style: none;
+    
+}
+.login{
+    margin: 0px 16px;
+    cursor: pointer;
+
+}

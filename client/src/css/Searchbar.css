@@ -1,0 +1,101 @@
+.searchbar{
+    display: flex;
+    justify-content: space-between;
+
+}
+.search{
+    display: flex;
+    gap: 32px;
+    margin: 8px 6px;
+    padding: 4px 6px;
+    padding-right: 12px;
+    margin-right: 12px;
+    font-size: 16px;
+    width: 500px;
+
+}
+.S_hader{
+    width: 180px;
+}
+.vector{
+    height: 6px;
+    padding-left: 4px;
+    cursor: pointer;
+}
+
+div.searchLIne {
+
+   width: 100%;
+   position: relative;
+   display: flex;
+}
+.searchImg{
+    height: 16px;
+}
+.SsearchInput,
+#SsearchStr {
+  width: 100%;
+  border: 2px solid rgba(255, 207, 153, 1);
+  border-right: none;
+  padding: 4px;
+  height: 18px;
+  border-radius: 5px 0 0 5px;
+  outline: none;
+  color: #9DBFAF;
+
+}
+.searchImg{
+    border: none;
+  outline: none; 
+}
+button.searchBtm {
+
+  width: 40px;
+  height: 29.5px;
+  border: 1px solid rgba(255, 207, 153, 1);
+  background: rgba(255, 207, 153, 1);
+  text-align: center;
+  color: #fff;
+  border-radius: 0 5px 5px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+.manubar{
+    display: flex; 
+    gap: 10px;
+    margin: 8px 6px;
+    padding: 4px 6px;
+    padding-right: 12px;
+    margin-right: 12px;
+
+}
+.S_new{
+    background-color: rgba(255, 207, 153, 1);
+    width: 40px;
+    height: 17px;
+    font-size: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: end;
+    padding-right: 2px;
+    margin-top: 2px;
+    cursor: pointer;
+    border: none;
+    outline: none; 
+
+}
+.New{
+    height: 8px;
+    
+}
+.setting{
+    height: 15px;
+    margin-top: 2px;
+    cursor: pointer;
+}
+.menu{
+    height: 11px;
+    margin-bottom: 2px;
+    cursor: pointer;
+}

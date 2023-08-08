@@ -1,0 +1,27 @@
+.navebar{
+    background-color: rgba(255, 240, 240, 1);
+    margin: 0;
+    display: block;
+}
+.navBox{
+    display: flex;
+    flex-direction:row;
+    justify-content: space-between;
+}
+.logo{
+    margin: 4px 32px;
+    font-size: 1.4rem;
+}
+/* .profile{
+    margin: 6px 16px;
+    
+} */
+.profileImg{
+    margin-top: 6px;
+    margin-right: 16px;
+    height: 28px;
+}
+.lineBox{
+    padding: 1.4px;
+    background:rgba(255, 207, 153, 1);
+}

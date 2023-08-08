@@ -1,0 +1,120 @@
+.searchInput,
+#searchStr {
+  margin-left: 4px;
+  border: 1px solid black;
+  outline: none;
+  box-shadow: none;
+  width: 200px;
+  height: 16px;
+  background-color: white;
+}
+
+.SmallsearchInput,
+#SmallsearchStr {
+  margin-left: 4px;
+  border: none;
+  outline: none;
+  box-shadow: none;
+  width: 50px;
+  height: 16px;
+  background-color: white;
+}
+.invoice{
+    margin: 11px;
+}
+.Invoice_detal{
+    margin-left: 31px;
+}
+
+.customer_detal{
+    margin-bottom: 8px;
+
+}
+.CName{
+    margin-bottom: 8px;
+
+}
+.Cid{
+    margin-bottom: 8px;
+}
+.CAdd{
+    height: 50px;
+    margin-bottom: 8px;
+}
+.Inumber{
+    margin-bottom: 8px;
+
+}
+.Idate{
+    margin-bottom: 8px;
+
+}
+.Items{
+    display: flex;
+    border: 1px solid rgb(11, 11, 11);
+    width: 90%;
+}
+.Item_detal{
+
+    width: 400px;
+    margin-left: 8px;
+
+}
+.quantity{
+
+    width: 150px;
+    margin-left: 8px;
+
+}
+.rate{
+
+    width: 150px;
+    margin-left: 8px;
+
+
+}
+.discount{
+    width: 150px;
+    margin-left: 8px;
+
+}
+.price_detal{
+    display: flex;
+    margin-bottom: 4px;
+    border: 1px solid rgb(11, 11, 11);
+    width: 90%;
+}
+.img{
+    width: 80px;
+    margin-left: 8px; 
+    
+}
+.total_item{
+
+    width: 300px;
+    margin-left: 8px;
+}
+.total_quntity{
+
+    width: 150px;
+    margin-left: 8px;
+  
+}
+.One_rate{
+
+    width: 150px;
+    margin-left: 8px;  
+}
+.Discount{
+    margin-left: 8px;  
+
+}
+.new{
+    width: 130px;
+    background-color:white;
+}
+
+.Total_div{
+    margin-left: 500px;
+    margin-bottom: 16px;
+}

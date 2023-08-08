@@ -1,0 +1,28 @@
+.Citembar{
+    display: flex;
+    gap: 180px;
+    height: 22px;
+    align-items: center;
+    border-top: 1px solid rgba(255, 207, 153, 1);
+    border-bottom:1px solid rgba(255, 207, 153, 1) ;
+    font-size: 14px;
+}
+.Cname{
+    margin-left: 32px;
+}
+.CRectangle{
+    margin-bottom: 1.5px;
+    height: 8px;
+}
+.Citem{
+    display: flex;
+    gap: 180px;
+    height: 32px;
+    font-size: 14px;
+    align-items: center;
+    border-top: 1px solid rgba(255, 207, 153, 1);
+    border-bottom:1px solid rgba(255, 207, 153, 1) ;
+}
+.Name{
+    margin-left: 43px;
+}

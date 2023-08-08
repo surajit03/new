@@ -1,0 +1,25 @@
+.menubar{
+    background-color: rgba(0, 67, 70, 1);
+    padding-top: 13px;
+
+
+}
+.menuUl{
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  
+}
+li{
+
+    margin-bottom: 5px;
+    margin-left: 5px;
+    
+}
+
+img{
+    height: 13px;
+    padding-right: 3px;
+
+    
+}

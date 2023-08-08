@@ -1,0 +1,15 @@
+.man{
+    height: 92.5vh;
+    display: flex;
+}
+.side-bar{
+    height: 100%;
+    width: 16%;
+    background-color: rgba(0, 67, 70, 1);
+
+}
+.rout{
+   height: 100%;
+   width: 100%;
+   /* overflow-y: hidden; */
+}
