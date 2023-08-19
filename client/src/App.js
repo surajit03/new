@@ -1,4 +1,4 @@
-import React,{ useState } from "react";
+import React from "react";
 import Menubar from './components/Menubar.jsx';
 import Navebar from './components/Navebar.jsx'
 import './App.css'
@@ -19,10 +19,10 @@ import { useSelector } from "react-redux";
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
-  
+
   return (
     <div className='App'>
-      {currentUser ? (
+      { currentUser ? (
         <Router>
           <div className='navebar'>
             <Navebar />

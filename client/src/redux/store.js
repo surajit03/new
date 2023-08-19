@@ -1,10 +1,14 @@
 import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import userReducer from './userSlice';
+import imgReducer from './imgSlice';
 
-// const rootReducer =combineReducers({user:userReducer,})
+const rootReducer = combineReducers({
+  user: userReducer,
+  img: imgReducer
+});
 
-export default configureStore({
-    reducer:{
-        user :userReducer
-    },
-})
+const store = configureStore({
+  reducer: rootReducer
+});
+
+export default store;

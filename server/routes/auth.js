@@ -5,7 +5,7 @@ const { body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-JWT_SECRET = 'XYZ!@#$ZYX!@#$'
+const JWT_SECRET = 'XYZ!@#$ZYX!@#$'
 
 // Route=1 sing up user using post"/singUp"
 router.post('/singUp', [
@@ -52,6 +52,9 @@ router.post('/singUp', [
         // used cookie
         res.cookie("access_token", authToken, {
             httpOnly: true,
+            secure: true, 
+            sameSite: 'strict'
+
         })
         let success = true
         res.json({ success, authToken })
@@ -71,7 +74,7 @@ router.post('/singIn', [
 ], async (req, res) => {
     const error = validationResult(req);
     if (!error.isEmpty()) {
-        return req.status(400).json({ error: error.array() });
+        return res.status(400).json({ error: error.array() });
     }
 
     const { email, password } = req.body;
@@ -96,6 +99,9 @@ router.post('/singIn', [
         // used cookie
         res.cookie("access_token", authToken, {
             httpOnly: true,
+            secure: true, 
+            sameSite: 'strict'
+
         })
         let success = true
         res.json({ success, authToken })
