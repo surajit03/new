@@ -8,19 +8,32 @@ import {
 } from "firebase/storage";
 import app from "../firebase";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { fetchStart, fetchSuccess, fetchFailuer } from "../redux/imgSlice";
+import { useNavigate ,Link} from "react-router-dom";
+import {  useDispatch } from 'react-redux'
+import {startLoading, endLoading, fetchProfile } from "../redux/profileSlice";
 
-function New_coustomer() {
-  const [img, setImg] = useState(undefined);
+
+ 
+const CreatProfile =() =>{
+    // const initialState = { 
+    //     name: '', 
+    //     email: '',
+    //     phoneNumber: '',
+    //     businessName: '',
+    //     contactAddress: '', 
+    //     logo: '',
+    //   };
+
+    //   const [form, setForm] = useState(initialState);
+  const [logo, setLogo] = useState(undefined);
   const [name, setName] = useState("");
-  const [IdNumber, setIdNumber] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [village, setVillage] = useState("");
-  const [Email, setEmail] = useState("");
+  const [phoneNumber, setPhoneNumber] = useState("");
+  const [email, setEmail] = useState("");
+  const [businessName, setBusinessName] = useState("");
+  const [contactAddress, setContactAddress] = useState("");
   const [imgPerc, setImgPerc] = useState(0);
   const [imgUrl, setimgUrl] = useState({});
+//   const [openSnackbar, closeSnackbar] = useSnackbar()
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -50,67 +63,67 @@ function New_coustomer() {
       },
       (error) => {
         console.error("Error during upload:", error);
-      },
-      () =>
-        getDownloadURL(uploadTask.snapshot.ref)
-          .then((downloadURL) => {
-            setimgUrl((prev) => {
-              return { ...prev, [urlType]: downloadURL };
-            });
-          })
-          .catch((error) => {
-            console.error("Error getting download URL:", error);
-            // Handle the error here, for example, by displaying an error message to the user.
-          })
+      }, 
+      () => getDownloadURL(uploadTask.snapshot.ref)
+      .then((downloadURL) => {
+        setimgUrl((prev) => {
+          return { ...prev, [urlType]: downloadURL }; 
+        });
+      })
+      .catch((error) => {
+        console.error("Error getting download URL:", error);
+        // Handle the error here, for example, by displaying an error message to the user.
+      })    
     );
   };
 
   useEffect(() => {
-    img && uploadFile(img, "imgUrl");
-  }, [img]);
+    logo && uploadFile(logo, "imgUrl");
+  }, [logo]);
+
+  
+  
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    dispatch(fetchStart());
+    dispatch({ type: startLoading });
     try {
-      const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
-      const res = await axios.post(
-        "/coustomer/addCoustomer",
+  const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
+      const response = await axios.post(
+        "/profile/createProfile",
         {
           imgUrl,
-          name,
-          IdNumber,
-          PhoneNumber,
-          village,
-          Email,
+          name, 
+          email,
+          phoneNumber,
+          businessName,
+          contactAddress, 
         },
         {
           headers: {
-            "Content-Type": "application/json",
-            "auth-token": token, // Use the 'token' you retrieved earlier
+            'Content-Type': 'application/json',
+            'auth-token': token, // Use the 'token' you retrieved earlier
           },
         }
       );
-      if (res.status === 200) {
-        dispatch(fetchSuccess(res.data._IdNumber));
-        console.log(res.data);
-        // navigate(`/New_coustomer/${res.data._IdNumber}`);
-        navigate("/New_coustomer");
-      } else {
-        console.log("Unexpected response status:", res.status);
-        // Handle other response statuses if needed
-      }
+      const data = response.data;
+      dispatch({ type: fetchProfile, payload: data });
+      openSnackbar("Profile updated successfully");
+      navigate("/Dashboard")
     } catch (error) {
-      dispatch(fetchFailuer());
-      console.error("Error uploading customer:", error);
-
+        console.error(error.response);
+      
       // Handle error scenarios, such as network issues
     }
   };
+  
+  const navigateToSetting =()=>{
+    navigate("/settings");
+  }
 
   return (
     <div className="New_coustomer">
-      <div className="hading">Add New Customer</div>
+      <div className="hading">Create Profile</div>
       <div className="customer_detal">
         <div className="Cimg">
           {imgPerc > 0 ? (
@@ -120,7 +133,7 @@ function New_coustomer() {
               type="file"
               placeholder="Img"
               accept="image/*"
-              onChange={(e) => setImg(e.target.files[0])}
+              onChange={(e) => setLogo(e.target.files[0])}
             />
           )}
         </div>
@@ -133,8 +146,8 @@ function New_coustomer() {
           </div>
           <div className="CIdNumber">
             <input
-              placeholder="IdNumber Number"
-              onChange={(e) => setIdNumber(e.target.value)}
+              placeholder="BusinessName"
+              onChange={(e) => setBusinessName(e.target.value)}
             />
           </div>
           <div className="CNumber">
@@ -145,8 +158,8 @@ function New_coustomer() {
           </div>
           <div className="CVillage">
             <input
-              placeholder="Village"
-              onChange={(e) => setVillage(e.target.value)}
+              placeholder="ContactAddres"
+              onChange={(e) => setContactAddress(e.target.value)}
             />
           </div>
           <div className="CEmail">
@@ -159,8 +172,12 @@ function New_coustomer() {
         </div>
       </div>
       <button onClick={handleUpload}>Upload</button>
+      <button onClick={navigateToSetting}> Setting</button>
+      
     </div>
   );
 }
 
-export default New_coustomer;
+export default CreatProfile;
+
+

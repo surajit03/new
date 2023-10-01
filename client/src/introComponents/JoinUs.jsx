@@ -3,14 +3,20 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, logingFailure } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useSnackbar } from 'react-simple-snackbar'
+import { fetchProfile } from "../redux/profileSlice";
+
 
 function JoinUs() {
   const [join, setJoin] = useState("signIn");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const user = JSON.parse(localStorage.getItem('profile'))
+
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -19,24 +25,52 @@ function JoinUs() {
       const res = await axios.post("/auth/singIn", { email, password });
       dispatch(loginSuccess(res.data));
       console.log(res.data);
-      navigate("/")
+      openSnackbar("Signin successfull");
+      navigate("/Dashboard");
+
     } catch (error) {
       dispatch(logingFailure());
     }
   };
 
-  const handlesingin = async(e)=>{
+  const handlesingin = async (e) => {
     e.preventDefault();
     dispatch(loginStart());
     try {
-      const res =await axios.post('/auth/singUp',{name,email,password});
+      const res = await axios.post("/auth/singUp", { name, email, password });
       dispatch(loginSuccess(res.data));
       console.log(res.data);
-      navigate('/')
+
+      const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
+      const response = await axios.post(
+        "/profile/createProfile",
+        {
+          imgUrl,
+          name,
+          email,
+          phoneNumber,
+          businessName,
+          contactAddress,
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            "auth-token": token, // Use the 'token' you retrieved earlier
+          },
+        }
+      );
+      const data = response.data;
+      dispatch({ type: fetchProfile, payload: data });
+      navigate("/Dashboard");
     } catch (error) {
       dispatch(logingFailure());
     }
-  }
+  };
+
+  // if (user) {
+  //   navigate('/dashboard')
+  // }
+  const handleShowPassword = () => setShowPassword(!showPassword);
 
   return (
     <div>
@@ -48,9 +82,11 @@ function JoinUs() {
               type="email"
               placeholder="email"
               onChange={(e) => setEmail(e.target.value)}
+              
             ></input>
             <input
-              type="password"
+              type={showPassword ? 'text' : 'password'}
+              handleShowPassword={handleShowPassword}
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
@@ -62,18 +98,18 @@ function JoinUs() {
         <div>
           <div>
             <input
-            placeholder="name"
-            onChange={(e)=>setName(e.target.value)}
+              placeholder="name"
+              onChange={(e) => setName(e.target.value)}
             ></input>
             <input
-            type="email"
-            placeholder="email"
-            onChange={(e)=>setEmail(e.target.value)}
+              type="email"
+              placeholder="email"
+              onChange={(e) => setEmail(e.target.value)}
             ></input>
             <input
-            type="password"
-            placeholder="password"
-            onChange={(e)=>setPassword(e.target.value)}
+              type="password"
+              placeholder="password"
+              onChange={(e) => setPassword(e.target.value)}
             ></input>
             <button onClick={handlesingin}>sign In</button>
           </div>

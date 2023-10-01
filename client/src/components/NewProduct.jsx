@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../css/New_coustomer.css";
+import "../css/NewProduct.css";
 import {
   getStorage,
   ref,
@@ -12,15 +12,15 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { fetchStart, fetchSuccess, fetchFailuer } from "../redux/imgSlice";
 
-function New_coustomer() {
+function NewProduct() {
   const [img, setImg] = useState(undefined);
   const [name, setName] = useState("");
-  const [IdNumber, setIdNumber] = useState("");
-  const [PhoneNumber, setPhoneNumber] = useState("");
-  const [village, setVillage] = useState("");
-  const [Email, setEmail] = useState("");
+  const [price, setPrice] = useState("");
+  const [description, setDescription] = useState("");
+  const [categary, setCategary] = useState("");
   const [imgPerc, setImgPerc] = useState(0);
   const [imgUrl, setimgUrl] = useState({});
+  const [uniqueId, setUniqueId] = useState({});
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -41,9 +41,11 @@ function New_coustomer() {
           case "paused":
             console.log("Upload is paused");
             break;
+
           case "running":
             console.log("Upload is running");
             break;
+
           default:
             break;
         }
@@ -59,7 +61,7 @@ function New_coustomer() {
             });
           })
           .catch((error) => {
-            console.error("Error getting download URL:", error);
+            console.error("Error getting download URL", error);
             // Handle the error here, for example, by displaying an error message to the user.
           })
     );
@@ -72,30 +74,30 @@ function New_coustomer() {
   const handleUpload = async (e) => {
     e.preventDefault();
     dispatch(fetchStart());
+
     try {
-      const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
+      const token = JSON.parse(localStorage.getItem("token"));
       const res = await axios.post(
-        "/coustomer/addCoustomer",
+        "product/addProduct",
         {
           imgUrl,
           name,
-          IdNumber,
-          PhoneNumber,
-          village,
-          Email,
+          price,
+          description,
+          categary,
+          uniqueId
         },
         {
           headers: {
             "Content-Type": "application/json",
-            "auth-token": token, // Use the 'token' you retrieved earlier
+            "auth-token": token,
           },
         }
       );
       if (res.status === 200) {
         dispatch(fetchSuccess(res.data._IdNumber));
         console.log(res.data);
-        // navigate(`/New_coustomer/${res.data._IdNumber}`);
-        navigate("/New_coustomer");
+        navigate("/NewProduct");
       } else {
         console.log("Unexpected response status:", res.status);
         // Handle other response statuses if needed
@@ -103,16 +105,15 @@ function New_coustomer() {
     } catch (error) {
       dispatch(fetchFailuer());
       console.error("Error uploading customer:", error);
-
       // Handle error scenarios, such as network issues
     }
   };
 
   return (
-    <div className="New_coustomer">
-      <div className="hading">Add New Customer</div>
-      <div className="customer_detal">
-        <div className="Cimg">
+    <div className="NewProduct">
+      <div className="hading">Add new Product</div>
+      <div className="Product_detal">
+        <div className="Pimg">
           {imgPerc > 0 ? (
             "Uploading:" + imgPerc + "%"
           ) : (
@@ -124,38 +125,32 @@ function New_coustomer() {
             />
           )}
         </div>
-        <div className="Cdetal">
-          <div className="CName">
-            <input
-              placeholder="Name"
-              onChange={(e) => setName(e.target.value)}
-            />
-          </div>
-          <div className="CIdNumber">
-            <input
-              placeholder="IdNumber Number"
-              onChange={(e) => setIdNumber(e.target.value)}
-            />
-          </div>
-          <div className="CNumber">
-            <input
-              placeholder="Phone Number"
-              onChange={(e) => setPhoneNumber(e.target.value)}
-            />
-          </div>
-          <div className="CVillage">
-            <input
-              placeholder="Village"
-              onChange={(e) => setVillage(e.target.value)}
-            />
-          </div>
-          <div className="CEmail">
-            <input
-              type="Email"
-              placeholder="Email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-          </div>
+        <div className="Pname">
+          <input placeholder="Name" onChange={(e) => setName(e.target.value)} />
+        </div>
+        <div className="Pprice">
+          <input
+            placeholder="Price"
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+        <div className="Pdescription">
+          <input
+            placeholder="Description"
+            onChange={(e) => setDescription(e.target.value)}
+          />
+        </div>
+        <div className="Pcategary">
+          <input
+            placeholder="Categary"
+            onChange={(e) => setCategary(e.target.value)}
+          />
+        </div>
+        <div className="P">
+          <input
+            placeholder="CuniqueId"
+            onChange={(e) => setUniqueId(e.target.value)}
+          />
         </div>
       </div>
       <button onClick={handleUpload}>Upload</button>
@@ -163,4 +158,4 @@ function New_coustomer() {
   );
 }
 
-export default New_coustomer;
+export default NewProduct;

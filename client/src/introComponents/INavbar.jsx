@@ -1,6 +1,6 @@
 import React from "react";
 import "./iNavbar.css";
-import { Link } from "react-router-dom";
+import { Link ,NavLink } from "react-router-dom";
 
 
 export default function INavbar() {

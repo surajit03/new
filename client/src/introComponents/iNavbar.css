@@ -5,6 +5,7 @@
     justify-content: space-between;
 }
 .item{
+    display: flex;
     margin: 0px 8px;
     gap: 16px;
     border: none;

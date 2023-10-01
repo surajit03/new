@@ -9,6 +9,11 @@ import Items from './components/Items.jsx'
 import Sell from './components/Sell.jsx'
 import Accountant from './components/Accountant.jsx'
 import New_coustomer from './components/New_coustomer.jsx'
+import NewProduct from './components/NewProduct.jsx'
+import ProductDetail from './components/ProductDetail.jsx'
+import CustomerDetail from './components/CustomerDetail.jsx';
+import Settings from './profile/Settings.js'
+import CreatProfile from './profile/CreatProfile.js'
 import INavebar from './introComponents/INavbar.jsx'
 import Home from './introComponents/Home.jsx'
 import Benefit from './introComponents/Benefit.jsx'
@@ -22,7 +27,7 @@ function App() {
 
   return (
     <div className='App'>
-      { currentUser ? (
+      {currentUser ? (
         <Router>
           <div className='navebar'>
             <Navebar />
@@ -40,26 +45,34 @@ function App() {
                 <Route path="Sell" element={<Sell />} />
                 <Route path="Accountant" element={<Accountant />} />
                 <Route path="/New_coustomer" element={<New_coustomer />} />
+                {/* <Route path="/CustomerDetail">
+                    <Route path=":_id" element={<CustomerDetail />} />
+                  </Route> */}
+                <Route path="/settings" element={<Settings />} />
+                <Route path="/CreatProfile" element={<CreatProfile />} />
+                <Route path="/CustomerDetail/:_id" element={<CustomerDetail />} />
+                <Route path="/NewProduct" element={<NewProduct />} />
+                <Route path="/ProductDetail/:_id" element={<ProductDetail />} />
+
               </Routes>
             </div>
           </div>
         </Router>
       ) : (
         <div>
-        <Router>
-          <div className='navebar'>
-            <INavebar />
-          </div>
-              <Routes>
-                <Route path="Home" element={<Home />}> </Route>
-                <Route index element={<Home />} />
-                <Route path="Benefit" element={<Benefit />} />
-                <Route path="About" element={<About />} />
-                <Route path="Contact" element={<Contact />} />
-                <Route path="JoinUs" element={<JoinUs />} />
-
-              </Routes>
-        </Router>
+          <Router>
+            <div className='navebar'>
+              <INavebar />
+            </div>
+            <Routes>
+              <Route path="Home" element={<Home />}> </Route>
+              <Route index element={<Home />} />
+              <Route path="Benefit" element={<Benefit />} />
+              <Route path="About" element={<About />} />
+              <Route path="Contact" element={<Contact />} />
+              <Route path="JoinUs" element={<JoinUs />} />
+            </Routes>
+          </Router>
         </div>
       )}
     </div>

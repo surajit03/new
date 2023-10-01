@@ -14,6 +14,7 @@ export const userSlice =createSlice({
             state.loading =true;
         },
         loginSuccess:(state,action)=>{
+            localStorage.setItem('profile', JSON.stringify({ ...action?.payload }))
             state.loading = false;
             state.currentUser=action.payload;
         },

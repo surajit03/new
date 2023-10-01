@@ -1,13 +1,10 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
+
 const AddSchema = new Schema({
-    user: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User' // Check if the actual model name is 'User'
-    },
     imgUrl: {
-        type: String,
+        type:Object,
         required: true
     },
     name: {
@@ -15,7 +12,7 @@ const AddSchema = new Schema({
         required: true
     },
     IdNumber: {
-        type: Number,
+        type: String,
         required: true
     },
     PhoneNumber: {
@@ -35,4 +32,5 @@ const AddSchema = new Schema({
     },
 });
 
-module.exports = mongoose.model('Customer', AddSchema);
+const Coustomer = mongoose.model('Coustomer', AddSchema);
+module.exports = Coustomer;

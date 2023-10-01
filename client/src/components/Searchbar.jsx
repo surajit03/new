@@ -5,13 +5,22 @@ import setting from "../img/setting.png";
 import menu from "../img/menu.png";
 import vector from "../img/vector.png";
 import New from "../img/new.png";
-import { useNavigate} from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function Searchbar(props) {
-  const navigate =useNavigate();
+  const navigate = useNavigate();
 
-  const navigateToNew =()=>{
-    navigate('/New_coustomer');
+  // const navigateToNew = () => {
+  //   navigate('/New_coustomer');
+
+  // };
+
+  const navigateToNew = () => {
+    if (props.title === "All Customer") {
+      navigate("/New_coustomer");
+    } else if (props.title === "All Items") {
+      navigate("/NewProduct");
+    }
   };
 
   return (

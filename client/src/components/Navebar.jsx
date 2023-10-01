@@ -16,13 +16,17 @@ function Navebar() {
     navigate("/Home")
   }
 
+  const navigateToSetting =()=>{
+    navigate("/CreatProfile");
+  }
+
   return (
     <nav className="navebar">
       <div className="navBox">
         <div className="logo">
           <button onClick={handaleLogout}>log out</button>
         </div>
-        <div className="profile">
+        <div className="profile" onClick={navigateToSetting}>
         <img  className = "profileImg"src={profile} alt="profile" />
         </div>
       </div>
