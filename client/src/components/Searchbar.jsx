@@ -37,17 +37,17 @@ function Searchbar(props) {
             id="SsearchStr"
             placeholder="Search"
           ></input>
-          <button className="searchBtm">
+          <div className="searchBtm">
             <img className="searchImg" src={search} alt="Search" />
-          </button>
+          </div>
         </div>
       </div>
       <div className="manubar">
         <div className="S_new">
-          <button className="S_new" onClick={navigateToNew}>
+          <div className="S_new" onClick={navigateToNew}>
             <img className="New" src={New} alt="New" />
-            New
-          </button>
+            {/* New */}
+          </div>
         </div>
         <div>
           <img className="setting" src={setting} alt="setting" />

@@ -3,6 +3,7 @@
     height: 40px;
     align-items: center;
     justify-content: space-between;
+    background-color: #fff0f0;
 }
 .item{
     display: flex;
@@ -10,13 +11,18 @@
     gap: 16px;
     border: none;
 }
+Link{
+    color: #ff907f;
+    text-emphasis-color:#ff907f ;
+}
 #dItem{
     cursor: pointer;
     list-style: none;
-    
+
 }
 .login{
     margin: 0px 16px;
     cursor: pointer;
-
+ 
 }
+

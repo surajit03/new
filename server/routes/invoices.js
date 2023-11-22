@@ -12,10 +12,10 @@ router.post("/createInvoice", verifyUser, async (req, res) => {
     try {
         const invoice = req.body;
 
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return req.status(400).json({ errors: errors() });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return req.status(400).json({ errors: errors() });
+        // }
         const newInvoice = new Invoice(invoice)
 
         const saveInvoice = await newInvoice.save();

@@ -1,0 +1,32 @@
+/* CustomerDetail.css */
+
+.customer-detail-container {
+    margin: 20px;
+  }
+  
+  .customer-detail-title {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .customer-detail-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 10px;
+  }
+  
+  .customer-detail-item {
+    margin-bottom: 10px;
+  }
+  
+  .customer-detail-label {
+    font-weight: bold;
+  }
+  
+  .loading-message {
+    font-size: 18px;
+    font-style: italic;
+    color: #888;
+  }
+  

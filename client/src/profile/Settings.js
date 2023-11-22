@@ -1,5 +1,5 @@
 import React from 'react'
-import styles from './setting.css'
+import './setting.css'
 import Form from './Form'
 import { useNavigate } from 'react-router-dom';
 

@@ -1,15 +1,18 @@
 .man{
-    height: 92.5vh;
+    height: 100vh;
     display: flex;
 }
 .side-bar{
-    height: 100%;
-    width: 16%;
+    height: 101%;
+    width: min(16%,70rem);
     background-color: rgba(0, 67, 70, 1);
+
 
 }
 .rout{
+    padding-left: 2px;
+    padding-top: 2px;
    height: 100%;
    width: 100%;
-   /* overflow-y: hidden; */
+   overflow-y: auto;
 }

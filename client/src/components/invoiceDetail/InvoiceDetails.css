@@ -1,0 +1,86 @@
+/* InvoiceDetails.module.css */
+.PageLayout {
+    background-color: #f0f0f0;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .buttons {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    button {
+      padding: 10px 20px;
+      background-color: #0074d9;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      margin-right: 10px;
+    }
+  }
+  
+  /* Update styling for other elements as needed */
+  
+  .clientDetails {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    div {
+      width: 48%; /* Adjust width as needed */
+    }
+  }
+  
+  .statusAndSummary {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px 0;
+    div {
+      width: 48%; /* Adjust width as needed */
+    }
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    text-align: left;
+  }
+  
+  .invoiceSummary {
+    margin: 20px 0;
+    display: flex;
+    flex-wrap: wrap;
+    .summary {
+      flex: 100%;
+    }
+    .summaryItem {
+      flex: 33%; /* Adjust as needed */
+      padding: 10px;
+    }
+  }
+  
+  .note {
+    margin: 20px 0;
+    h4 {
+      margin-bottom: 10px;
+    }
+    p {
+      font-size: 14px;
+    }
+  }
+  
+  /* Additional styling as needed */
+  
+  

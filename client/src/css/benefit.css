@@ -1,0 +1,76 @@
+Add styling for the benefit page
+
+.benefit-page-container {
+    width: 100%;
+}
+.benefit-page-container h1 {
+    text-align: center;
+    font-size: 2rem;
+    margin: auto;
+    color: #000000;
+    /* Updated text color */
+} 
+
+.benefit-content {
+    display: block;
+    text-align: center;
+    flex-direction: column;
+}
+
+.flas {
+    display: flex;
+    align-items: center;
+    gap: 4rem;
+    padding: min(2rem);
+    margin: auto;
+}
+
+.image-container {
+    margin: 20px 0;
+}
+
+.imagee img {
+    max-width: 85%;
+    height: auto;
+}
+
+/* h1 {
+    color: #000000;
+    
+} */
+
+/* h2 {
+    color: rgb(0, 0, 0);
+    
+} */
+
+.flas p {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: rgb(0, 0, 0);
+  
+}
+
+/* ul {
+    list-style-type: none;
+    padding: 0;
+} */
+
+/* li {
+    margin: 8px 0;
+    color: rgb(0, 0, 0);
+    
+} */
+.feature-container div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: .5rem;
+    padding: 1rem;
+    margin: 1rem;
+    border-radius: 1rem;
+    background-color: #f5f5f5;
+    /* Updated background color */
+    box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.2);
+    /* Updated box shadow */
+}

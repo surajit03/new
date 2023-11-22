@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux'
-import {useLocation, useNavigate, Link } from "react-router-dom";
+import { useLocation, useNavigate, Link, useParams } from "react-router-dom";
 import Uploader from './Uploader';
 import { fetchProfileByUser, updateProfile, startLoading, endLoading } from '../redux/profileSlice.js'
 import Input from './input';
@@ -22,9 +22,10 @@ const Settings = () => {
   const [form, setForm] = useState(initialState);
   const location = useLocation()
   const dispatch = useDispatch();
-  const { profiles } = useSelector((state) => state.profile);
-  console.log(profiles)
+  // const { profiles } = useSelector((state) => state.profile);
+  // console.log(profiles)
   const [switchEdit, setSwitchEdit] = useState(0)
+  const { profiles } = useSelector((state) => state.profiles);
 
 
   useEffect(() => {
@@ -33,46 +34,49 @@ const Settings = () => {
     }
   }, [switchEdit])
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        if (user?.result?._id) {
-          dispatch({ type: startLoading });
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       if (user?.result?._id) {
+  //         dispatch({ type: startLoading });
 
-          const token = JSON.parse(localStorage.getItem('token')); // Get the token
+  //         const token = JSON.parse(localStorage.getItem('token')); // Get the token
 
-          const response = await axios.get(`/profile/getProfilesByUser?searchQuery=${user.result._id}`, {
-            headers: {
-              'Content-Type': 'application/json',
-              'auth-token': token,
-            },
-          });
 
-          // You can access the response data using response.data
-          const data = response.data;
+  //         const response = await axios.get(`/profile/getProfilesByUser?searchQuery=${user.result._id}`, {
+  //           headers: {
+  //             'Content-Type': 'application/json',
+  //             'auth-token': token,
+  //           },
+  //         });
 
-          dispatch({ type: fetchProfileByUser, payload: data });
-          dispatch({ type: endLoading });
-        }
-      } catch (error) {
-        console.error(error.response);
-        // Handle the error as needed
-      }
-    };
+  //         // You can access the response data using response.data
+  //         const data = response.data;
 
-    if (location && switchEdit) {
-      fetchData();
-    }
-  }, [location, switchEdit]);
-  // [location, switchEdit, dispatch, user?.result?._id]); 
+  //         dispatch({ type: fetchProfileByUser, payload: data });
+  //         dispatch({ type: endLoading });
+  //       }
+  //     } catch (error) {
+  //       console.error(error.response);
+  //       // Handle the error as needed
+  //     }
+  //   };
 
-  localStorage.setItem('profileDetail', JSON.stringify({ ...profiles }))
+  //   if (location && switchEdit) {
+  //     fetchData();
+  //   }
+  // }, [location, switchEdit]);
+  // // [location, switchEdit, dispatch, user?.result?._id]); 
+
+  // localStorage.setItem('profileDetail', JSON.stringify({ ...profiles }))
+  const { _id } = useParams();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     const token = JSON.parse(localStorage.getItem('token')); // Get the token
+    // const profileId = profiles._id;
     try {
-      const response = await axios.get(`/profile/updateProfile/${id}`, form, {
+      const response = await axios.get(`/profile/updateProfile/${_id}`, form, {
         headers: {
           'Content-Type': 'application/json',
           'auth-token': token,
@@ -87,18 +91,21 @@ const Settings = () => {
     }
   };
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
+  const { profileId } = useParams();
+
 
   return (
     <div>
       {switchEdit === 0 && (
         <div>
-          <ProfileDetail profiles={profiles} />
-          <button style={{ margin: '30px', padding: '15px 30px' }} onClick={() => setSwitchEdit(1)}>Edit Profile</button>
+          <ProfileDetail />
+          <button style={{ marginLeft: '48px', cursor: 'pointer', padding: '12px 30px' , backgroundColor: 'rgba(255, 207, 153, 1)',}} onClick={() => setSwitchEdit(1)}>Edit Profile</button>
         </div>
       )}
 
       {switchEdit === 1 && (
         <div>
+
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -106,16 +113,16 @@ const Settings = () => {
             borderBottom: 'solid 1px #dddddd',
             paddingBottom: '20px'
           }}>
-            <img
+            {/* <img
               alt=""
               src={profiles?.logo}
               style={{
-                width: '100px',
-                height: '100px',
+                width: '50px',
+                height: '50px',
                 borderRadius: '50%',
                 objectFit: 'cover',
               }}
-            />
+            /> */}
           </div>
           <form onSubmit={handleSubmit}>
             <Uploader form={form} setForm={setForm} />
@@ -125,19 +132,26 @@ const Settings = () => {
             <Input name="contactAddress" label="Contact Address" handleChange={handleChange} type="text" value={form?.contactAddress} />
             {/* <Input name="paymentDetails" label="Payment Details/Notes" handleChange={handleChange} type="text" multiline rows="4" value={form?.paymentDetails} /> */}
             <button type="submit" style={{
-              width: '100%',
-              padding: '10px',
-              backgroundColor: 'blue',
+              width: '20%',
+              padding: '6px',
+              backgroundColor: 'rgba(255, 207, 153, 1)',
               color: 'white',
               border: 'none',
-              cursor: 'pointer'
-            }}>
-              Update Settings
-            </button>
-          </form>
+              cursor: 'pointer',
+              marginLeft: '24px' ,
+              marginTop: '8px' 
+
+
+              }}>
+            Update Settings
+          </button>
+        </form>
         </div>
-      )}
-    </div>
+  )
+}
+
+    </div >
+
   );
 };
 

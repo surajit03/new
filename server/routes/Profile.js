@@ -8,16 +8,16 @@ const { body, validationResult } = require("express-validator");
 // Create profile using :POST "/api/profile/createProfile" 
 router.post("/createProfile", verifyUser, async (req, res) => {
     try {
-        const {name,email,phoneNumber,contactAddres,userId} = req.body;
+        const {name,email,businessName,phoneNumber,contactAddress,imgUrl,userId} = req.body;
 
         // if the are error return bad requst
-        const errors = validationResult(req);
-        if (!errors.isEmpty()) {
-            return req.status(400).json({ errors: errors() });
-        }
+        // const errors = validationResult(req);
+        // if (!errors.isEmpty()) {
+        //     return req.status(400).json({ errors: errors() });
+        // }
 
         const NewProfile = new Profile({
-            name,email,phoneNumber,contactAddres,userId
+            name,email,businessName,phoneNumber,contactAddress,imgUrl,userId
         });
         const existingUser = await Profile.findOne({ email })
 
@@ -44,6 +44,15 @@ router.get("/getProfile/:_id",verifyUser ,async (req,res)=>{
     }
 })
 
+router.get("/OnegetProfile",verifyUser ,async (req,res)=>{
+    try {
+      const profile = await Profile.find( req.params._id );
+        res.status(200).json(profile);
+    } catch (error) {
+        console.log(error.message);
+        res.status(500).send("Internal server error");
+    }
+})
 
 // get profile by user  using : GET "/api/profile/getProfile/:_id"
 router.get("/getProfilesByUser",verifyUser ,async (req,res)=>{

@@ -8,23 +8,13 @@ import {
 } from "firebase/storage";
 import app from "../firebase";
 import axios from "axios";
-import { useNavigate ,Link} from "react-router-dom";
-import {  useDispatch } from 'react-redux'
-import {startLoading, endLoading, fetchProfile } from "../redux/profileSlice";
+import { useNavigate, Link } from "react-router-dom";
+import { useDispatch, useSelector } from 'react-redux'
+import { fetchProfile } from "../redux/profileSlice";
+import { fetchStart, fetchSuccess, fetchFailuer } from "../redux/imgSlice";
 
 
- 
-const CreatProfile =() =>{
-    // const initialState = { 
-    //     name: '', 
-    //     email: '',
-    //     phoneNumber: '',
-    //     businessName: '',
-    //     contactAddress: '', 
-    //     logo: '',
-    //   };
-
-    //   const [form, setForm] = useState(initialState);
+const CreatProfile = () => {
   const [logo, setLogo] = useState(undefined);
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
@@ -33,7 +23,15 @@ const CreatProfile =() =>{
   const [contactAddress, setContactAddress] = useState("");
   const [imgPerc, setImgPerc] = useState(0);
   const [imgUrl, setimgUrl] = useState({});
-//   const [openSnackbar, closeSnackbar] = useSnackbar()
+
+  // const [userData, setUserData] = useState({
+  //   imgUrl: "",
+  //   name: "",
+  //   email: "",
+  //   phoneNumber: "",
+  //   businessName: "",
+  //   contactAddress: "",
+  // });
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -42,6 +40,7 @@ const CreatProfile =() =>{
     const fileName = new Date().getTime() + file.name;
     const storageRef = ref(storage, fileName);
     const uploadTask = uploadBytesResumable(storageRef, file);
+    // const profile = useSelector((state) => state.profile.userData);
 
     uploadTask.on(
       "state_changed",
@@ -63,17 +62,17 @@ const CreatProfile =() =>{
       },
       (error) => {
         console.error("Error during upload:", error);
-      }, 
+      },
       () => getDownloadURL(uploadTask.snapshot.ref)
-      .then((downloadURL) => {
-        setimgUrl((prev) => {
-          return { ...prev, [urlType]: downloadURL }; 
-        });
-      })
-      .catch((error) => {
-        console.error("Error getting download URL:", error);
-        // Handle the error here, for example, by displaying an error message to the user.
-      })    
+        .then((downloadURL) => {
+          setimgUrl((prev) => {
+            return { ...prev, [urlType]: downloadURL };
+          });
+        })
+        .catch((error) => {
+          console.error("Error getting download URL:", error);
+          // Handle the error here, for example, by displaying an error message to the user.
+        })
     );
   };
 
@@ -81,23 +80,27 @@ const CreatProfile =() =>{
     logo && uploadFile(logo, "imgUrl");
   }, [logo]);
 
-  
-  
+
+
+  // useEffect(() => {
+  //   // This effect will run whenever userData changes
+  //   console.log("Updated userData:", userData);
+  // }, [userData]);
 
   const handleUpload = async (e) => {
     e.preventDefault();
-    dispatch({ type: startLoading });
+    // dispatch({ type: startLoading });
     try {
-  const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
+      const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
       const response = await axios.post(
         "/profile/createProfile",
         {
           imgUrl,
-          name, 
+          name,
           email,
           phoneNumber,
           businessName,
-          contactAddress, 
+          contactAddress,
         },
         {
           headers: {
@@ -107,37 +110,40 @@ const CreatProfile =() =>{
         }
       );
       const data = response.data;
-      dispatch({ type: fetchProfile, payload: data });
-      openSnackbar("Profile updated successfully");
+      dispatch(fetchProfile(data));
+      // setUserData(data)
+      console.log(data);
       navigate("/Dashboard")
     } catch (error) {
-        console.error(error.response);
-      
-      // Handle error scenarios, such as network issues
+      dispatch(fetchFailuer());
+      console.error(error.response);
+
     }
   };
-  
-  const navigateToSetting =()=>{
-    navigate("/settings");
+
+  const navigateToSetting = () => {
+    navigate("/Profile");
   }
+
 
   return (
     <div className="New_coustomer">
       <div className="hading">Create Profile</div>
       <div className="customer_detal">
-        <div className="Cimg">
-          {imgPerc > 0 ? (
-            "Uploading:" + imgPerc + "%"
-          ) : (
-            <input
-              type="file"
-              placeholder="Img"
-              accept="image/*"
-              onChange={(e) => setLogo(e.target.files[0])}
-            />
-          )}
-        </div>
         <div className="Cdetal">
+
+          <div className="Cimg">
+            {imgPerc > 0 ? (
+              "Uploading:" + imgPerc + "%"
+            ) : (
+              <input
+                type="file"
+                placeholder="Img"
+                accept="image/*"
+                onChange={(e) => setLogo(e.target.files[0])}
+              />
+            )}
+          </div>
           <div className="CName">
             <input
               placeholder="Name"
@@ -171,9 +177,22 @@ const CreatProfile =() =>{
           </div>
         </div>
       </div>
-      <button onClick={handleUpload}>Upload</button>
-      <button onClick={navigateToSetting}> Setting</button>
-      
+      <button onClick={handleUpload} style={{ marginLeft: '48px', cursor: 'pointer', padding: '2px 16px', backgroundColor: '#ff7660', }} >Upload</button>
+
+      <button onClick={navigateToSetting}
+        style={{
+          marginLeft: '8px',
+          cursor: 'pointer',
+          padding: '2px 16px',
+          backgroundColor: '#ff7660',
+        }}
+      >
+        Setting
+      </button>
+
+
+
+
     </div>
   );
 }

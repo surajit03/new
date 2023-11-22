@@ -10,7 +10,8 @@ router.post("/addCoustomer", verifyUser,[
     body('PhoneNumber', 'Enter a val_id Phone Number').isLength({ min: 3 }),
 ] ,async (req, res) => {
     try {
-        const { imgUrl, name, IdNumber, PhoneNumber, village, Email } = req.body;
+        // const { imgUrl, name, IdNumber, PhoneNumber, village, Email } = req.body;
+        const coustomers = req.body
 
         // // if the are error return bad requst 
         const errors = validationResult(req);
@@ -19,12 +20,13 @@ router.post("/addCoustomer", verifyUser,[
         }
 
         const coustomer = new Coustomer({
-            imgUrl, 
-            name, 
-            IdNumber, 
-            PhoneNumber, 
-            village, 
-            Email,
+            // imgUrl, 
+            // name, 
+            // IdNumber, 
+            // PhoneNumber, 
+            // village, 
+            // Email,
+            ...coustomers, createdAt: new Date().toISOString()
 
         });
         const saveCoustomern =await coustomer.save();
@@ -64,6 +66,20 @@ router.get('/fachallOneCoustomer/:_id', verifyUser, async (req, res) => {
       res.status(500).send('Internal server error');
     }
   });
+
+// ROUT 4=get coustomer by user GET "/api/coustomer/fachallCoustomerByUser/User"
+  router.get('/fachallCoustomerByUser' , verifyUser, async (req, res) => {
+    const{searchQuery} = req.query
+    try {
+      const customer = await Coustomer.find({ userId: searchQuery });
+
+      res.status(200).json({data:customer});
+    } catch (error) {
+      console.error(error.message);
+      res.status(500).send('Internal server error');
+    }
+  });
+
 
 
 module.exports =router;

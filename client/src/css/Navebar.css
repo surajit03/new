@@ -20,6 +20,7 @@
     margin-top: 6px;
     margin-right: 16px;
     height: 28px;
+    cursor: pointer;
 }
 .lineBox{
     padding: 1.4px;

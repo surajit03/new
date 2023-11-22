@@ -12,7 +12,7 @@ import New_coustomer from './components/New_coustomer.jsx'
 import NewProduct from './components/NewProduct.jsx'
 import ProductDetail from './components/ProductDetail.jsx'
 import CustomerDetail from './components/CustomerDetail.jsx';
-import Settings from './profile/Settings.js'
+import Profile from './profile/Profile.jsx'
 import CreatProfile from './profile/CreatProfile.js'
 import INavebar from './introComponents/INavbar.jsx'
 import Home from './introComponents/Home.jsx'
@@ -21,10 +21,11 @@ import About from './introComponents/About.jsx'
 import Contact from './introComponents/Contact.jsx'
 import JoinUs from './introComponents/JoinUs.jsx'
 import { useSelector } from "react-redux";
+import Invoice from "./components/Invoice/Inovice.jsx";
+import InvoiceDetail from "./components/Invoice/InvoiceDetail.jsx"
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
-
   return (
     <div className='App'>
       {currentUser ? (
@@ -42,13 +43,17 @@ function App() {
                 <Route index element={<Dashboard />} />
                 <Route path="Customer" element={<Customer />} />
                 <Route path="Items" element={<Items />} />
-                <Route path="Sell" element={<Sell />} />
+                {/* <Route path="Sell" element={<Sell />} />  */}
                 <Route path="Accountant" element={<Accountant />} />
                 <Route path="/New_coustomer" element={<New_coustomer />} />
+                <Route path="Invoice" element={<Invoice />} />
+                <Route path="InvoiceDetail/:_id" element={<InvoiceDetail />} />
+
+
                 {/* <Route path="/CustomerDetail">
                     <Route path=":_id" element={<CustomerDetail />} />
                   </Route> */}
-                <Route path="/settings" element={<Settings />} />
+                <Route path="/Profile" element={<Profile />} />
                 <Route path="/CreatProfile" element={<CreatProfile />} />
                 <Route path="/CustomerDetail/:_id" element={<CustomerDetail />} />
                 <Route path="/NewProduct" element={<NewProduct />} />
@@ -61,7 +66,7 @@ function App() {
       ) : (
         <div>
           <Router>
-            <div className='navebar'>
+            <div className='Inavebar'>
               <INavebar />
             </div>
             <Routes>

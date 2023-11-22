@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import '../css/CustomerDetail.css'; // Import the CSS file
 
 function CustomerDetail() {
-  const { _id } = useParams(); // Use useParams to access the _id parameter
+  const { _id } = useParams();
   const [customer, setCustomer] = useState(null);
-  
 
   useEffect(() => {
     const fetchCustomer = async () => {
@@ -13,7 +13,7 @@ function CustomerDetail() {
 
       try {
         const response = await axios.get(
-          `/coustomer/fachallOneCoustomer/${_id}`, 
+          `/coustomer/fachallOneCoustomer/${_id}`,
           {
             headers: {
               'Content-Type': 'application/json',
@@ -29,29 +29,51 @@ function CustomerDetail() {
     };
 
     fetchCustomer();
-  }, [_id]); 
+  }, [_id]);
+
   return (
-    <div>
-      <div>Customer Detail</div>
+    <div className="customer-detail-container">
+      <div className="customer-detail-title">Customer Detail</div>
       {customer ? (
         <div>
-           {customer.imgUrl && (
+          {customer.imgUrl && (
             <div>
-              <img src={customer.imgUrl} alt="Customer" />
+              <img
+                className="customer-detail-image"
+                src={customer.imgUrl}
+                alt="Customer"
+              />
             </div>
           )}
-          <div>_id: {customer._id}</div>
-          <div>Name: {customer.name}</div>
-          <div>IdNumber: {customer.IdNumber}</div>
-          <div>PhoneNumber: {customer.PhoneNumber}</div>
-          <div>village: {customer.village}</div>
-          <div>Email: {customer.Email}</div>
-          <div>date: {customer.date}</div>
-         
-
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">_id:</span> {customer._id}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">Name:</span> {customer.name}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">IdNumber:</span>{' '}
+            {customer.IdNumber}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">PhoneNumber:</span>{' '}
+            {customer.PhoneNumber}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">Village:</span>{' '}
+            {customer.village}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">Email:</span>{' '}
+            {customer.Email}
+          </div>
+          <div className="customer-detail-item">
+            <span className="customer-detail-label">Date:</span>{' '}
+            {customer.date}
+          </div>
         </div>
       ) : (
-        <div>Loading...</div>
+        <div className="loading-message">Loading...</div>
       )}
     </div>
   );

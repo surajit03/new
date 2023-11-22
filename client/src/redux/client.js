@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    currentClient: null,
+    currentClient: [],
     loading: false,
     error: false,
     currentPage: null,
@@ -19,9 +19,18 @@ export const clientSlice = createSlice({
             state.loading = false;
         },
         fetchClient: (state, action) => {
-            state.loading = false;
             state.currentClient = action.payload;
         },
+
+        fetchClientByUser: (state, action) => {
+            try {
+              state.currentClient = action.payload;
+            } catch (error) {
+              console.error('Error processing fetchClientByUser action:', error);
+            }
+          },
+          
+          
         allClient: (state,action) => {
             state.currentClient = action.payload.data;
             state.currentPage = action.payload.currentPage;
@@ -42,6 +51,6 @@ export const clientSlice = createSlice({
 
     }
 });
-export const { startLoading, endLoading, fetchClient, allClient, addNewClient,updateClient,deleteClient} = clientSlice.actions;
+export const { startLoading, endLoading, fetchClient, fetchClientByUser,allClient, addNewClient,updateClient,deleteClient} = clientSlice.actions;
 
 export default clientSlice.reducer;

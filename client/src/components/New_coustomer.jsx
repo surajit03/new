@@ -10,6 +10,7 @@ import app from "../firebase";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import {addNewClient} from '../redux/client'
 import { fetchStart, fetchSuccess, fetchFailuer } from "../redux/imgSlice";
 
 function New_coustomer() {
@@ -91,9 +92,11 @@ function New_coustomer() {
           },
         }
       );
+      const data= res
       if (res.status === 200) {
-        dispatch(fetchSuccess(res.data._IdNumber));
-        console.log(res.data);
+
+        dispatch({ type: addNewClient, payload: data });
+        console.log(data);
         // navigate(`/New_coustomer/${res.data._IdNumber}`);
         navigate("/New_coustomer");
       } else {
@@ -112,6 +115,7 @@ function New_coustomer() {
     <div className="New_coustomer">
       <div className="hading">Add New Customer</div>
       <div className="customer_detal">
+      <div className="Cdetal">
         <div className="Cimg">
           {imgPerc > 0 ? (
             "Uploading:" + imgPerc + "%"
@@ -124,7 +128,6 @@ function New_coustomer() {
             />
           )}
         </div>
-        <div className="Cdetal">
           <div className="CName">
             <input
               placeholder="Name"
@@ -158,7 +161,7 @@ function New_coustomer() {
           </div>
         </div>
       </div>
-      <button onClick={handleUpload}>Upload</button>
+      <button  className= "btm"onClick={handleUpload}>Upload</button>
     </div>
   );
 }

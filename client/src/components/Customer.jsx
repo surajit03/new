@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Searchbar from "./Searchbar.jsx";
 import "../css/Customer.css";
-import Rectangle from "../img/Rectangle.png";
+// import Rectangle from "../img/Rectangle.png";
 import { useNavigate, Link } from "react-router-dom";
 
 function Customer() {
@@ -45,30 +45,40 @@ function Customer() {
   return (
     <div>
       <Searchbar title="All Customer" />
-      <div className="Citembar">
-        <div className="Cname">
-          <img src={Rectangle} className="CRectangle" alt="Rectangle" />
-          NAME
-        </div>
-        <div className="Cid">ID No.</div>
-        <div className="Cno">PHONE No.</div>
-        <div className="Cvillage">VILLAGE</div>
-      </div>
-      <div className="fetchCustomers">
-        {allCustomers.length === 0 && " No. of customer is 0"}
-        {allCustomers.map((coustomer) => (
-          <div key={coustomer.IdNumber} className="customer_btn">
-            <Link  className="custom-link" to={`/CustomerDetail/${coustomer._id}` }>
-              <div className="customer">
-                <div className="Name">{coustomer.name}</div>
-                <div className="id">{coustomer.IdNumber}</div>
-                <div className="no">{coustomer.PhoneNumber}</div>
-                <div className="village">{coustomer.village}</div>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </div>
+      <table className="customer-table">
+        <thead>
+          <tr className="Citembar">
+            <th className="Cname">
+              {/* <img src={Rectangle} className="CRectangle" alt="Rectangle" /> */}
+              NAME
+            </th>
+            <th className="Cid">ID No.</th>
+            <th className="Cno">PHONE No.</th>
+            <th className="Cvillage">VILLAGE</th>
+          </tr>
+        </thead>
+        <tbody className="fetchCustomers">
+          {allCustomers.length === 0 && (
+            <tr>
+              <td colSpan="4"> No. of customer is 0</td>
+            </tr>
+          )}
+          {allCustomers.map((coustomer) => (
+              <Link
+                className="custom-link"
+                to={`/CustomerDetail/${coustomer._id}`}
+              >
+                <tr className="customer-row">
+                <td className="Name">{coustomer.name}</td>
+                <td className="id">{coustomer.IdNumber}</td>
+                <td className="no">{coustomer.PhoneNumber}</td>
+                <td className="village">{coustomer.village}</td>
+                </tr>
+              </Link>
+          ))}
+          
+        </tbody>
+      </table>
     </div>
   );
 }

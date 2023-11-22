@@ -43,7 +43,7 @@ function Menubar() {
           </li>
           <li>
             {" "}
-            <Link to="/Sell" style={linkStyle}>
+            <Link to="/Invoice" style={linkStyle}>
               <img className="Sell" src={Sell} alt="" />
               Sell
             </Link>

@@ -3,9 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { loginStart, loginSuccess, logingFailure } from "../redux/userSlice";
 import { useNavigate } from "react-router-dom";
-import { useSnackbar } from 'react-simple-snackbar'
-import { fetchProfile } from "../redux/profileSlice";
-
+import "../css/joinUs.css";
 
 function JoinUs() {
   const [join, setJoin] = useState("signIn");
@@ -15,8 +13,6 @@ function JoinUs() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const user = JSON.parse(localStorage.getItem('profile'))
-
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -25,77 +21,50 @@ function JoinUs() {
       const res = await axios.post("/auth/singIn", { email, password });
       dispatch(loginSuccess(res.data));
       console.log(res.data);
-      openSnackbar("Signin successfull");
       navigate("/Dashboard");
-
     } catch (error) {
       dispatch(logingFailure());
     }
   };
-
   const handlesingin = async (e) => {
     e.preventDefault();
+
     dispatch(loginStart());
     try {
       const res = await axios.post("/auth/singUp", { name, email, password });
       dispatch(loginSuccess(res.data));
       console.log(res.data);
-
-      const token = JSON.parse(localStorage.getItem("token")); // Use the same key 'token'
-      const response = await axios.post(
-        "/profile/createProfile",
-        {
-          imgUrl,
-          name,
-          email,
-          phoneNumber,
-          businessName,
-          contactAddress,
-        },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            "auth-token": token, // Use the 'token' you retrieved earlier
-          },
-        }
-      );
-      const data = response.data;
-      dispatch({ type: fetchProfile, payload: data });
       navigate("/Dashboard");
     } catch (error) {
       dispatch(logingFailure());
     }
   };
 
-  // if (user) {
-  //   navigate('/dashboard')
-  // }
   const handleShowPassword = () => setShowPassword(!showPassword);
 
   return (
-    <div>
+    <div className="join-us-container">
       {join === "signIn" ? (
         <div>
-          <div>Sing In</div>
-          <div>
+          {/* <div>Sing In</div> */}
+          <div className="sign-in-container">
             <input
               type="email"
-              placeholder="email"
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
-              
             ></input>
             <input
-              type={showPassword ? 'text' : 'password'}
+              type={showPassword ? "text" : "password"}
               handleShowPassword={handleShowPassword}
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <button onClick={handleLogin}>sing in</button>
+            <button onClick={handleLogin}>Sing in</button>
+            <button onClick={() => setJoin("signUp")}>Switch to Sign Up</button>
           </div>
-          <button onClick={() => setJoin("signUp")}>Switch to Sign Up</button>
         </div>
       ) : (
-        <div>
+        <div className="sign-up-container">
           <div>
             <input
               placeholder="name"
@@ -103,7 +72,7 @@ function JoinUs() {
             ></input>
             <input
               type="email"
-              placeholder="email"
+              placeholder="Email"
               onChange={(e) => setEmail(e.target.value)}
             ></input>
             <input
@@ -111,7 +80,7 @@ function JoinUs() {
               placeholder="password"
               onChange={(e) => setPassword(e.target.value)}
             ></input>
-            <button onClick={handlesingin}>sign In</button>
+            <button onClick={handlesingin}>Sign up</button>
           </div>
           <button onClick={() => setJoin("signIn")}>Switch to Sign In</button>
         </div>

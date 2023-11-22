@@ -1,10 +1,13 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { configureStore, combineReducers,applyMiddleware } from "@reduxjs/toolkit";
 import userReducer from './userSlice';
 import imgReducer from './imgSlice';
 import clientReducer from './client'
-import profileSlice from './profileSlice'
+import { profileSlice } from './profileSlice'
 import InvoiceSlice from './invoiceSlice'
-
+import thunk from 'redux-thunk'; 
+ 
+const middleware = [thunk]; 
+ 
 const rootReducer = combineReducers({
   user: userReducer,
   img: imgReducer,
@@ -14,7 +17,8 @@ const rootReducer = combineReducers({
 });
 
 const store = configureStore({
-  reducer: rootReducer
+  reducer: rootReducer,
+  applyMiddleware:[...middleware]
 });
 
 export default store;

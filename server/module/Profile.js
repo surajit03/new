@@ -21,8 +21,8 @@ const ProfileSchema = new Schema({
         type:String,
    
     },
-    logo:{
-        type:String,
+    imgUrl:{
+        type:Object,
    
     }, 
     paymentDetails:{
