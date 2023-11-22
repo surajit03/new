@@ -80,25 +80,25 @@ function Inovice() {
     // }, [_id]);
   }, [location]);
 
-  const getInvoice = async () => {
-    const token = JSON.parse(localStorage.getItem("token")); // Get the token
-    try {
-      const response = await axios.get(`/invoice/getInvoiceByID/${_id}`, {
-        headers: {
-          "Content-Type": "application/json",
-          "auth-token": token,
-        },
-      });
-      const businessDetails = await api.fetchProfilesByUser({
-        search: user?.result?._id,
-      });
-      const invoiceData = { ...response, businessDetails };
-      dispatch({ type: getInvoice, payload: invoiceData });
-      dispatch({ type: getInvoice, payload: response });
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  // const getInvoice = async () => {
+  //   const token = JSON.parse(localStorage.getItem("token")); // Get the token
+  //   try {
+  //     const response = await axios.get(`/invoice/getInvoiceByID/${_id}`, {
+  //       headers: {
+  //         "Content-Type": "application/json",
+  //         "auth-token": token,
+  //       },
+  //     });
+  //     const businessDetails = await api.fetchProfilesByUser({
+  //       search: user?.result?._id,
+  //     });
+  //     const invoiceData = { ...response, businessDetails };
+  //     dispatch({ type: getInvoice, payload: invoiceData });
+  //     dispatch({ type: getInvoice, payload: response });
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
 
   useEffect(() => {
     // Define the function inside useEffect to make it an effect
